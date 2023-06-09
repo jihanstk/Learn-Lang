@@ -32,13 +32,37 @@ const Header = () => {
         </NavLink>
       </li>
       <li className="uppercase">
-        <NavLink to="/instructors"> Instructors</NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "text-orange-500 border-b-2 border-orange-500" : ""
+          }
+          to="/instructors"
+        >
+          {" "}
+          Instructors
+        </NavLink>
       </li>
       <li className="uppercase">
-        <NavLink to="/classes"> Classes</NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "text-orange-500 border-b-2 border-orange-500" : ""
+          }
+          to="/classes"
+        >
+          {" "}
+          Classes
+        </NavLink>
       </li>
       <li className="uppercase">
-        <NavLink to="/dashboard"> Dashboard</NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "text-orange-500 border-b-2 border-orange-500" : ""
+          }
+          to="/dashboard"
+        >
+          {" "}
+          Dashboard
+        </NavLink>
       </li>
     </>
   );
