@@ -5,9 +5,8 @@ const MainLayout = () => {
   return (
     <div>
       <Header></Header>
-      <div className="">
-        <Outlet></Outlet>
-      </div>
+
+      <Outlet></Outlet>
     </div>
   );
 };

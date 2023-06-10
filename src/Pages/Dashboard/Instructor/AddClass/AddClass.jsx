@@ -1,10 +1,12 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../../../Hooks/useAuth";
+import {} from "react";
 
 const img_hosting_token = import.meta.env.VITE_IMG_HOSTING_API;
 
 const AddClass = () => {
   const { user } = useAuth();
+  //   const [image, setImage] = useState("");
   const {
     register,
     handleSubmit,
@@ -22,8 +24,29 @@ const AddClass = () => {
       body: formData,
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
+      .then((imageResponse) => {
+        // console.log(data);
+        const imgURL = imageResponse.data.display_url;
+        const { className, email, userName, sit, price } = data;
+        const newClass = {
+          className,
+          email,
+          userName,
+          sit: parseInt(sit),
+          price: parseFloat(price),
+          image: imgURL,
+        };
+        fetch("http://localhost:5010/classes", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newClass),
+        })
+          .then((res) => res.json())
+          .then((classes) => {
+            console.log(classes);
+          });
       });
     // if (data.password !== data.ConPassword) {
     //   return;
@@ -45,7 +68,7 @@ const AddClass = () => {
                   {...register("class", { required: true })}
                   className="input input-bordered"
                 />
-                {errors.class && (
+                {errors.className && (
                   <p className=" text-red-700">Class Name is required.</p>
                 )}
               </div>
@@ -63,7 +86,7 @@ const AddClass = () => {
                 <input
                   type="email"
                   placeholder="email"
-                  {...register("email", { required: true })}
+                  {...register("email")}
                   className="input input-bordered"
                   defaultValue={user?.email}
                   readOnly
@@ -75,13 +98,11 @@ const AddClass = () => {
               <div className="form-control w-full">
                 <input
                   type="text"
-                  {...register("userName", {
-                    required: true,
-                  })}
+                  {...register("userName")}
                   placeholder="User Name"
                   className="input input-bordered"
                   defaultValue={user?.displayName}
-                  //   readOnly
+                  readOnly
                 />
                 {errors.userName?.type === "required" && (
                   <p className="text-red-600">User Name is required</p>
