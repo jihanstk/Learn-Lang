@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import useAuth from "../../../Hooks/useAuth";
 
 const Header = () => {
+  const { user } = useAuth();
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
@@ -60,10 +62,10 @@ const Header = () => {
           }
           to="/dashboard"
         >
-          {" "}
           Dashboard
         </NavLink>
       </li>
+      {}
     </>
   );
   return (

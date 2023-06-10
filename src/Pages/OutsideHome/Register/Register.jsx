@@ -1,30 +1,51 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../../Hooks/useAuth";
-
+import { useState } from "react";
+const img_hosting_token = import.meta.env.VITE_IMG_HOSTING_API;
 const Register = () => {
-  const { signUp } = useAuth();
+  const { signUp, UpdateUserProfile, googleLogin } = useAuth();
+  const [image, setImage] = useState("");
+  // Google Log In
+  const handleGoogle = () => {
+    googleLogin();
+  };
   const {
     register,
     handleSubmit,
-    reset,
     formState: { errors },
   } = useForm();
+
+  const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
   const onSubmit = (data) => {
     console.log(data);
-    reset();
+    const formData = new FormData();
+    formData.append("image", data.image[0]);
+    fetch(img_hosting_url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setImage(data.data.display_url);
+      });
     // if (data.password !== data.ConPassword) {
     //   return;
     // }
     signUp(data.email, data.password).then((res) => {
       console.log(res.user);
+
       //   TODO : Update User Profile Name and photo
+      UpdateUserProfile(res.user, data.name, image).then(() => {
+        console.log("User Profile is updated");
+      });
     });
   };
   return (
     <div className="hero min-h-screen bg-base-200">
-      <div className="hero-content flex-col w-1/2">
+      <div className="hero-content mb-20 flex-col w-1/2">
         <div className="text-center ">
-          <h1 className="text-5xl font-bold">Login now!</h1>
+          <h1 className="text-5xl font-bold mt-20">Register now!</h1>
         </div>
         <div className="card flex-shrink-0 w-full  shadow-2xl bg-base-100">
           <form onSubmit={handleSubmit(onSubmit)} className="card-body">
@@ -98,7 +119,6 @@ const Register = () => {
                 type="password"
                 {...register("ConPassword", {
                   required: true,
-                  deps: true,
                 })}
                 placeholder="Confirm Password"
                 className="input input-bordered"
@@ -107,13 +127,31 @@ const Register = () => {
             <div className="form-control w-full max-w-xs">
               <input
                 type="file"
+                {...register("image", {
+                  required: true,
+                })}
                 className="file-input file-input-bordered w-full max-w-xs"
               />
             </div>
             <div className="form-control mt-6">
-              <input type="submit" className="btn btn-primary" value="Log in" />
+              <input
+                type="submit"
+                className="btn btn-primary"
+                value="Register"
+              />
             </div>
           </form>
+          <div
+            onClick={handleGoogle}
+            className="px-7 pb-8 mt-0 w-44 mx-auto flex items-center text-3xl cursor-pointer "
+          >
+            <img
+              className="w-10 h-10 cursor-pointer"
+              src="https://www.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png"
+              alt=""
+            />
+            <span className="text-red-800">oogle</span>
+          </div>
         </div>
       </div>
     </div>
