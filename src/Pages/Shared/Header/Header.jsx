@@ -3,7 +3,10 @@ import { NavLink } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 
 const Header = () => {
-  const { user } = useAuth();
+  const { user, logOut } = useAuth();
+  const handleLogOut = () => {
+    logOut();
+  };
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
@@ -60,7 +63,7 @@ const Header = () => {
           className={({ isActive }) =>
             isActive ? "text-orange-500 border-b-2 border-orange-500" : ""
           }
-          to="/dashboard/add-class"
+          to="/dashboard/my-class"
         >
           Dashboard
         </NavLink>
@@ -109,6 +112,7 @@ const Header = () => {
             {navList}
           </ul>
         </div>
+
         <div className="navbar-end">
           <label className="swap swap-rotate">
             {/* this hidden checkbox controls the state */}
@@ -132,6 +136,21 @@ const Header = () => {
               <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z" />
             </svg>
           </label>
+        </div>
+        <div className="dropdown dropdown-end">
+          <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+            <div className="w-10 rounded-full">
+              <img src={user?.photoURL} />
+            </div>
+          </label>
+          <ul
+            tabIndex={0}
+            className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-black/30 text-black rounded-box w-52"
+          >
+            <li onClick={handleLogOut}>
+              <a>Logout</a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

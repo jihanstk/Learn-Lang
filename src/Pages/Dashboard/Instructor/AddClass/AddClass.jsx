@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../../../Hooks/useAuth";
 import {} from "react";
+import Swal from "sweetalert2";
 
 const img_hosting_token = import.meta.env.VITE_IMG_HOSTING_API;
 
@@ -26,27 +27,39 @@ const AddClass = () => {
       .then((res) => res.json())
       .then((imageResponse) => {
         // console.log(data);
-        const imgURL = imageResponse.data.display_url;
-        const { className, email, userName, sit, price } = data;
-        const newClass = {
-          className,
-          email,
-          userName,
-          sit: parseInt(sit),
-          price: parseFloat(price),
-          image: imgURL,
-        };
-        fetch("http://localhost:5010/classes", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(newClass),
-        })
-          .then((res) => res.json())
-          .then((classes) => {
-            console.log(classes);
-          });
+        if (imageResponse.success) {
+          const imgURL = imageResponse.data.display_url;
+          const { className, email, userName, sit, price } = data;
+          const newClass = {
+            className,
+            email,
+            userName,
+            sit: parseInt(sit),
+            price: parseFloat(price),
+            image: imgURL,
+            status: "pending",
+          };
+          fetch("http://localhost:5010/add-classes", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(newClass),
+          })
+            .then((res) => res.json())
+            .then((classes) => {
+              console.log(classes);
+              if (classes.insertedId) {
+                Swal.fire({
+                  position: "center",
+                  icon: "success",
+                  title: "Your work has been saved",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+              }
+            });
+        }
       });
     // if (data.password !== data.ConPassword) {
     //   return;
@@ -65,7 +78,7 @@ const AddClass = () => {
                 <input
                   type="text"
                   placeholder="Class Name"
-                  {...register("class", { required: true })}
+                  {...register("className", { required: true })}
                   className="input input-bordered"
                 />
                 {errors.className && (

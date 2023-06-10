@@ -5,6 +5,7 @@ import Login from "../Pages/OutsideHome/Login/Login";
 import Register from "../Pages/OutsideHome/Register/Register";
 import DashboardLayout from "../LayOuts/DashboardLayout";
 import AddClass from "../Pages/Dashboard/Instructor/AddClass/AddClass";
+import MyClass from "../Pages/Dashboard/Instructor/MyClass/MyClass";
 
 const router = createBrowserRouter([
   {
@@ -26,11 +27,15 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/dashboard",
+    path: "dashboard",
     element: <DashboardLayout></DashboardLayout>,
     children: [
       {
-        path: "/dashboard/add-class",
+        path: "my-class",
+        element: <MyClass></MyClass>,
+      },
+      {
+        path: "add-class",
         element: <AddClass></AddClass>,
       },
     ],
