@@ -1,13 +1,14 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../../Hooks/useAuth";
-import { useState } from "react";
+
 import SocialLogin from "../../../Common/SocialLogin";
+import { useNavigate } from "react-router-dom";
+
 const img_hosting_token = import.meta.env.VITE_IMG_HOSTING_API;
 const Register = () => {
-  const { signUp, UpdateUserProfile } = useAuth();
-  const [image, setImage] = useState("");
-  // Google Log In
+  const { signUp, UpdateUserProfile, logOut } = useAuth();
 
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -24,21 +25,25 @@ const Register = () => {
       body: formData,
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setImage(data.data.display_url);
+      .then((imgRes) => {
+        console.log(imgRes);
+
+        signUp(data.email, data.password).then((res) => {
+          console.log(res.user);
+
+          //   TODO : Update User Profile Name and photo
+          UpdateUserProfile(res.user, data.name, imgRes.data.display_url).then(
+            () => {
+              console.log("User Profile is updated");
+              logOut();
+              navigate("/login");
+            }
+          );
+        });
       });
     // if (data.password !== data.ConPassword) {
     //   return;
     // }
-    signUp(data.email, data.password).then((res) => {
-      console.log(res.user);
-
-      //   TODO : Update User Profile Name and photo
-      UpdateUserProfile(res.user, data.name, image).then(() => {
-        console.log("User Profile is updated");
-      });
-    });
   };
   return (
     <div className="hero min-h-screen bg-base-200">

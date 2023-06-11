@@ -10,14 +10,15 @@ import {
   updateProfile,
 } from "firebase/auth";
 import app from "../Firebase/Firebase.config";
-import { Navigate } from "react-router-dom";
+
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const auth = getAuth(app);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [from, setFrom] = useState("");
+
   const googleProvider = new GoogleAuthProvider();
 
   const signUp = (email, password) => {
@@ -30,9 +31,7 @@ const AuthProvider = ({ children }) => {
   };
   const googleLogin = () => {
     setLoading(true);
-    return signInWithPopup(auth, googleProvider).then(() => {
-      <Navigate to={from}></Navigate>;
-    });
+    return signInWithPopup(auth, googleProvider);
   };
   const UpdateUserProfile = (user, name, photo) => {
     return updateProfile(user, {
@@ -48,7 +47,19 @@ const AuthProvider = ({ children }) => {
       console.log(currentUser);
       setUser(currentUser);
 
-      setLoading(false);
+      if (currentUser) {
+        axios
+          .post("http://localhost:5010/jwt", {
+            email: currentUser.email,
+          })
+          .then((data) => {
+            // console.log(data.data.token);
+            localStorage.setItem("access-token", data.data.token);
+            setLoading(false);
+          });
+      } else {
+        localStorage.removeItem("access-token");
+      }
     });
     return () => {
       unsubscribe();
@@ -63,7 +74,6 @@ const AuthProvider = ({ children }) => {
     UpdateUserProfile,
     googleLogin,
     logOut,
-    setFrom,
   };
   return (
     <div>

@@ -1,11 +1,14 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { FaPlus } from "react-icons/fa";
 import { FcReading } from "react-icons/fc";
-import useAuth from "../Hooks/useAuth";
+
 import Header from "../Pages/Shared/Header/Header";
+// import useAdmin from "../Hooks/useAdmin";
+import useAuth from "../Hooks/useAuth";
 
 const DashboardLayout = () => {
   const { user } = useAuth();
+  // const [isAdmin] = useAdmin();
   return (
     <>
       <Header></Header>
@@ -25,8 +28,10 @@ const DashboardLayout = () => {
         </div>
         <div className="drawer-side bg-[#303956] text-white max-h-screen ">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-          <h2 className="text-2xl p-4 border-b-2 border-b-white">Instructor</h2>
-          <ul className=" p-4 w-80 h-full ">
+          <h2 className="text-2xl p-4 border-b-2 border-b-white">
+            Instructor: <small>{user.displayName}</small>
+          </h2>
+          <ul className=" p-4 w-80 h-full text-lg">
             {/* Sidebar content here */}
 
             {user ? (
@@ -45,7 +50,7 @@ const DashboardLayout = () => {
                     </div>
                   </NavLink>
                 </li>
-                <li className="uppercase">
+                <li className="uppercase my-6">
                   <NavLink
                     className={({ isActive }) =>
                       isActive

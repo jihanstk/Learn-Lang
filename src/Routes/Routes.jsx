@@ -6,6 +6,7 @@ import Register from "../Pages/OutsideHome/Register/Register";
 import DashboardLayout from "../LayOuts/DashboardLayout";
 import AddClass from "../Pages/Dashboard/Instructor/AddClass/AddClass";
 import MyClass from "../Pages/Dashboard/Instructor/MyClass/MyClass";
+import PrivetRoute from "./PrivetRoute";
 
 const router = createBrowserRouter([
   {
@@ -28,7 +29,11 @@ const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <DashboardLayout></DashboardLayout>,
+    element: (
+      <PrivetRoute>
+        <DashboardLayout></DashboardLayout>
+      </PrivetRoute>
+    ),
     children: [
       {
         path: "my-class",

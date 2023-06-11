@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../../Hooks/useAuth";
 import SocialLogin from "../../../Common/SocialLogin";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const location = useLocation();
@@ -86,6 +86,14 @@ const Login = () => {
               <input type="submit" className="btn btn-primary" value="Log in" />
             </div>
           </form>
+          <div>
+            <p className="p-9">
+              New to Learn Lang?{" "}
+              <Link className="text-orange-600 font-bold " to="/register">
+                Please Register
+              </Link>{" "}
+            </p>
+          </div>
           <SocialLogin></SocialLogin>
         </div>
       </div>
