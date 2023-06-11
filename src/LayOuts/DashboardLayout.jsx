@@ -9,7 +9,7 @@ const DashboardLayout = () => {
   return (
     <>
       <Header></Header>
-      <div className="drawer lg:drawer-open">
+      <div className="drawer lg:drawer-open pt-20 ">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col items-center justify-center">
           {/* Page content here */}
@@ -23,7 +23,7 @@ const DashboardLayout = () => {
             Open drawer
           </label>
         </div>
-        <div className="drawer-side bg-[#303956] text-white">
+        <div className="drawer-side bg-[#303956] text-white max-h-screen ">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
           <h2 className="text-2xl p-4 border-b-2 border-b-white">Instructor</h2>
           <ul className=" p-4 w-80 h-full ">

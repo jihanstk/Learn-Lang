@@ -1,7 +1,12 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../../Hooks/useAuth";
+import SocialLogin from "../../../Common/SocialLogin";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
   const { login } = useAuth();
   const {
     register,
@@ -14,6 +19,7 @@ const Login = () => {
     reset();
     login(data.email, data.password).then((res) => {
       console.log(res.user);
+      navigate(from, { replace: true });
     });
   };
   return (
@@ -80,6 +86,7 @@ const Login = () => {
               <input type="submit" className="btn btn-primary" value="Log in" />
             </div>
           </form>
+          <SocialLogin></SocialLogin>
         </div>
       </div>
     </div>

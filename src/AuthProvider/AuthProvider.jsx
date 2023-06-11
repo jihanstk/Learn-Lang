@@ -10,12 +10,14 @@ import {
   updateProfile,
 } from "firebase/auth";
 import app from "../Firebase/Firebase.config";
+import { Navigate } from "react-router-dom";
 
 export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
   const auth = getAuth(app);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [from, setFrom] = useState("");
   const googleProvider = new GoogleAuthProvider();
 
   const signUp = (email, password) => {
@@ -28,7 +30,9 @@ const AuthProvider = ({ children }) => {
   };
   const googleLogin = () => {
     setLoading(true);
-    return signInWithPopup(auth, googleProvider);
+    return signInWithPopup(auth, googleProvider).then(() => {
+      <Navigate to={from}></Navigate>;
+    });
   };
   const UpdateUserProfile = (user, name, photo) => {
     return updateProfile(user, {
@@ -59,6 +63,7 @@ const AuthProvider = ({ children }) => {
     UpdateUserProfile,
     googleLogin,
     logOut,
+    setFrom,
   };
   return (
     <div>

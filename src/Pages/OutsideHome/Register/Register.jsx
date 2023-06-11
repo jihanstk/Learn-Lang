@@ -1,14 +1,13 @@
 import { useForm } from "react-hook-form";
 import useAuth from "../../../Hooks/useAuth";
 import { useState } from "react";
+import SocialLogin from "../../../Common/SocialLogin";
 const img_hosting_token = import.meta.env.VITE_IMG_HOSTING_API;
 const Register = () => {
-  const { signUp, UpdateUserProfile, googleLogin } = useAuth();
+  const { signUp, UpdateUserProfile } = useAuth();
   const [image, setImage] = useState("");
   // Google Log In
-  const handleGoogle = () => {
-    googleLogin();
-  };
+
   const {
     register,
     handleSubmit,
@@ -141,17 +140,7 @@ const Register = () => {
               />
             </div>
           </form>
-          <div
-            onClick={handleGoogle}
-            className="px-7 pb-8 mt-0 w-44 mx-auto flex items-center text-3xl cursor-pointer "
-          >
-            <img
-              className="w-10 h-10 cursor-pointer"
-              src="https://www.google.com/images/branding/googleg/1x/googleg_standard_color_128dp.png"
-              alt=""
-            />
-            <span className="text-red-800">oogle</span>
-          </div>
+          <SocialLogin></SocialLogin>
         </div>
       </div>
     </div>

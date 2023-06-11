@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../Hooks/useAuth";
 
 const Header = () => {
@@ -137,21 +137,27 @@ const Header = () => {
             </svg>
           </label>
         </div>
-        <div className="dropdown dropdown-end">
-          <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-            <div className="w-10 rounded-full">
-              <img src={user?.photoURL} />
-            </div>
-          </label>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-black/30 text-black rounded-box w-52"
-          >
-            <li onClick={handleLogOut}>
-              <a>Logout</a>
-            </li>
-          </ul>
-        </div>
+        {user ? (
+          <div className="dropdown dropdown-end">
+            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full">
+                <img src={user?.photoURL} />
+              </div>
+            </label>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-black/30 text-black rounded-box w-52"
+            >
+              <li onClick={handleLogOut}>
+                <a>Logout</a>
+              </li>
+            </ul>
+          </div>
+        ) : (
+          <Link to="/login">
+            <button className="btn btn-error">Login</button>
+          </Link>
+        )}
       </div>
     </div>
   );
