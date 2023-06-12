@@ -1,25 +1,33 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
-import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const SocialLogin = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [axiosSecure] = useAxiosSecure();
+  // const [axiosSecure] = useAxiosSecure();
   const from = location.state?.from?.pathname || "/";
   const { googleLogin } = useAuth();
   const handleGoogle = () => {
     googleLogin().then((result) => {
-      const userInfo = {
-        email: result.email,
-        name: result.displayName,
+      const loggedInUser = result.user;
+      console.log(loggedInUser);
+      const saveUser = {
+        name: loggedInUser.displayName,
+        email: loggedInUser.email,
       };
-      console.log(userInfo);
-      //   axiosSecure.post("/user", userInfo).then((userUpdate) => {
-      //     console.log(userUpdate);
-      //   });
+      console.log(saveUser);
+      fetch("http://localhost:5010/user", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(saveUser),
+      })
+        .then((res) => res.json())
+        .then(() => {
+          navigate(from, { replace: true });
+        });
     });
-    navigate(from);
   };
   return (
     <div
