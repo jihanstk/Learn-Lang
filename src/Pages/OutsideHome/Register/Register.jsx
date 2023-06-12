@@ -42,6 +42,7 @@ const Register = () => {
                 email: user.email,
                 name: user.displayName,
                 photo: imgRes.data.display_url,
+                role: "student",
               };
 
               axiosSecure.post("/user", userInfo).then((userUpdate) => {
