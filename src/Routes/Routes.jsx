@@ -7,6 +7,9 @@ import DashboardLayout from "../LayOuts/DashboardLayout";
 import AddClass from "../Pages/Dashboard/Instructor/AddClass/AddClass";
 import MyClass from "../Pages/Dashboard/Instructor/MyClass/MyClass";
 import PrivetRoute from "./PrivetRoute";
+import InstructorRoute from "./InstructorRoute";
+import ManageUser from "../Pages/Dashboard/Admin/ManageUser/ManageUser";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -37,11 +40,27 @@ const router = createBrowserRouter([
     children: [
       {
         path: "my-class",
-        element: <MyClass></MyClass>,
+        element: (
+          <InstructorRoute>
+            <MyClass></MyClass>
+          </InstructorRoute>
+        ),
       },
       {
         path: "add-class",
-        element: <AddClass></AddClass>,
+        element: (
+          <InstructorRoute>
+            <AddClass></AddClass>
+          </InstructorRoute>
+        ),
+      },
+      {
+        path: "manageUser",
+        element: (
+          <AdminRoute>
+            <ManageUser></ManageUser>
+          </AdminRoute>
+        ),
       },
     ],
   },

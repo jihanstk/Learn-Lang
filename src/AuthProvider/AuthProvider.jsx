@@ -49,7 +49,7 @@ const AuthProvider = ({ children }) => {
 
       if (currentUser) {
         axios
-          .post("http://localhost:5010/jwt", {
+          .post("http://localhost:5010/JWT", {
             email: currentUser.email,
           })
           .then((data) => {

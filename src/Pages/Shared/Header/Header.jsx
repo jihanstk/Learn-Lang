@@ -63,7 +63,7 @@ const Header = () => {
           className={({ isActive }) =>
             isActive ? "text-orange-500 border-b-2 border-orange-500" : ""
           }
-          to="/dashboard/my-class"
+          to="/dashboard"
         >
           Dashboard
         </NavLink>

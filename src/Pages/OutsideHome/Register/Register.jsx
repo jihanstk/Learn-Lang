@@ -4,9 +4,12 @@ import useAuth from "../../../Hooks/useAuth";
 import SocialLogin from "../../../Common/SocialLogin";
 import { useNavigate } from "react-router-dom";
 
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+
 const img_hosting_token = import.meta.env.VITE_IMG_HOSTING_API;
 const Register = () => {
   const { signUp, UpdateUserProfile, logOut } = useAuth();
+  const [axiosSecure] = useAxiosSecure();
 
   const navigate = useNavigate();
   const {
@@ -29,12 +32,22 @@ const Register = () => {
         console.log(imgRes);
 
         signUp(data.email, data.password).then((res) => {
-          console.log(res.user);
+          const user = res.user;
 
           //   TODO : Update User Profile Name and photo
-          UpdateUserProfile(res.user, data.name, imgRes.data.display_url).then(
+          UpdateUserProfile(user, data.name, imgRes.data.display_url).then(
             () => {
               console.log("User Profile is updated");
+              const userInfo = {
+                email: user.email,
+                name: user.displayName,
+                photo: imgRes.data.display_url,
+              };
+
+              axiosSecure.post("/user", userInfo).then((userUpdate) => {
+                console.log("from register Add", userUpdate);
+              });
+
               logOut();
               navigate("/login");
             }

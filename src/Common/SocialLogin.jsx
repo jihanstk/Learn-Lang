@@ -1,13 +1,24 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../Hooks/useAuth";
+import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 const SocialLogin = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [axiosSecure] = useAxiosSecure();
   const from = location.state?.from?.pathname || "/";
   const { googleLogin } = useAuth();
   const handleGoogle = () => {
-    googleLogin();
+    googleLogin().then((result) => {
+      const userInfo = {
+        email: result.email,
+        name: result.displayName,
+      };
+      console.log(userInfo);
+      //   axiosSecure.post("/user", userInfo).then((userUpdate) => {
+      //     console.log(userUpdate);
+      //   });
+    });
     navigate(from);
   };
   return (
