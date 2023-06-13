@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "./useAxiosSecure";
 import useAuth from "./useAuth";
-const useUser = () => {
+const useClass = () => {
   const { loading } = useAuth();
   // const token = localStorage.getItem('access-token');
   const [axiosSecure] = useAxiosSecure();
@@ -17,4 +17,4 @@ const useUser = () => {
 
   return [allClasses, refetch];
 };
-export default useUser;
+export default useClass;

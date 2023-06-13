@@ -11,3 +11,6 @@ body {
   padding: 0;
   margin: 0;
 }
+.awssld__content {
+  background-color: transparent !important;
+}

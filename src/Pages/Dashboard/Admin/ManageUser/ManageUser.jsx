@@ -1,20 +1,13 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { FaUserEdit, FaUserShield } from "react-icons/fa";
 import Swal from "sweetalert2";
-// import useUserRole from "../../../../Hooks/useUserRole";
+
 import useUser from "../../../../Hooks/useUser";
 
 const ManageUser = () => {
   const [allUser, refetch] = useUser();
-  const [disable, setDisable] = useState(false);
-  //   useEffect(() => {
-  //     fetch("http://localhost:5010/user")
-  //       .then((res) => res.json())
-  //       .then((SavedUser) => {
-  //         // setAllUsers(SavedUser);
-  //       });
-  //   }, []);
-  const handleMakeAdmin = () => {
+
+  const handleMakeAdmin = (email) => {
     Swal.fire({
       title: "Are you sure?",
       text: "Do You Want to make admin",
@@ -25,7 +18,25 @@ const ManageUser = () => {
       confirmButtonText: "Yes, Make Admin!",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        const userEmail = {
+          email: email,
+        };
+        fetch(`http://localhost:5010/user/mkadmin/${email}`, {
+          method: "PATCH",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(userEmail),
+        })
+          .then((res) => res.json())
+          .then((updated) => {
+            if (updated.modifiedCount) {
+              refetch();
+              //   setDisable(true);
+              console.log("user is Updated", updated);
+              Swal.fire("Updated!", "Your User has been Updated.", "success");
+            }
+          });
       }
     });
   };
@@ -55,7 +66,7 @@ const ManageUser = () => {
           .then((updated) => {
             if (updated.modifiedCount) {
               refetch();
-              setDisable(true);
+
               console.log("user is Updated", updated);
               Swal.fire("Updated!", "Your User has been Updated.", "success");
             }
@@ -79,35 +90,36 @@ const ManageUser = () => {
           </tr>
         </thead>
         <tbody>
-          {allUser.map((user) => {
+          {allUser.map((singleUser) => {
             return (
-              <tr key={user._id}>
+              <tr key={singleUser._id}>
                 <td></td>
                 <td>
                   <div className="flex items-center space-x-3">
                     <div className="avatar">
                       <div className="mask mask-squircle w-12 h-12">
                         <img
-                          src={user.photo}
+                          src={singleUser.photo}
                           alt="Avatar Tailwind CSS Component"
                         />
                       </div>
                     </div>
                   </div>
                 </td>
-                <td className="text-lg font-bold">{user.name}</td>
-                <td>{user.email}</td>
-                <th>{user.role}</th>
+                <td className="text-lg font-bold">{singleUser.name}</td>
+                <td>{singleUser.email}</td>
+                <th>{singleUser.role}</th>
                 <td>
                   <button
-                    onClick={() => handleMakeAdmin(user.email)}
+                    onClick={() => handleMakeAdmin(singleUser.email)}
+                    disabled={singleUser?.role == "admin" ? true : false}
                     className="btn btn-ghost btn-xs text-orange-800"
                   >
                     <FaUserShield></FaUserShield> Make Admin
                   </button>
                   <button
-                    onClick={() => handleMakeInstructor(user.email)}
-                    disabled={disable}
+                    onClick={() => handleMakeInstructor(singleUser.email)}
+                    disabled={singleUser?.role == "instructor" ? true : false}
                     className="btn btn-xs text-green-700"
                   >
                     {" "}

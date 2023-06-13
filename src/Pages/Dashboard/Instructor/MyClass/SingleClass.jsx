@@ -24,7 +24,7 @@ const SingleClass = ({ singleClass }) => {
           {status}
           {status == "pending" ? (
             <MdOutlinePendingActions></MdOutlinePendingActions>
-          ) : status == "done" ? (
+          ) : status == "approve" ? (
             <MdDone></MdDone>
           ) : (
             <MdOutlineCancel></MdOutlineCancel>

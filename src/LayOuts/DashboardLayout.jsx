@@ -2,9 +2,10 @@ import { NavLink, Outlet } from "react-router-dom";
 import {
   FaCalculator,
   FaHome,
-  FaMarsStroke,
+  FaLanguage,
   FaPlus,
   FaUser,
+  FaUserTie,
 } from "react-icons/fa";
 import { FcReading } from "react-icons/fc";
 import control from "../assets/icon/control.png";
@@ -27,7 +28,7 @@ const DashboardLayout = () => {
       <div
         className={`bg-[#303956] ${
           open ? "w-72" : "w-20 "
-        } bg-dark-purple h-screen p-5  pt-8 relative duration-300`}
+        } bg-dark-purple h-screen sticky top-0 p-5  pt-8  duration-300`}
       >
         <img
           src={control}
@@ -150,7 +151,7 @@ const DashboardLayout = () => {
           >
             <NavLink
               className={({ isActive }) => (isActive ? "text-orange-500 " : "")}
-              to="/dashboard/add-class"
+              to="/"
             >
               <div className="flex items-center gap-5 text-lg duration-200">
                 <FaHome></FaHome>
@@ -172,13 +173,32 @@ const DashboardLayout = () => {
               to="/instructors"
             >
               <div className="flex items-center gap-5 text-lg duration-200">
-                <FaMarsStroke></FaMarsStroke>
+                <FaUserTie></FaUserTie>
                 <span
                   className={`${
                     !open && "hidden"
                   } origin-left text-lg duration-200`}
                 >
                   Instructors
+                </span>
+              </div>
+            </NavLink>
+          </li>
+          <li
+            className={`text-slate-200 rounded-md p-2 cursor-pointer hover:bg-light-white text-sm items-center gap-x-4  `}
+          >
+            <NavLink
+              className={({ isActive }) => (isActive ? "text-orange-500 " : "")}
+              to="/classes"
+            >
+              <div className="flex items-center gap-5 text-lg duration-200">
+                <FaLanguage></FaLanguage>
+                <span
+                  className={`${
+                    !open && "hidden"
+                  } origin-left text-lg duration-200`}
+                >
+                  Classes
                 </span>
               </div>
             </NavLink>
