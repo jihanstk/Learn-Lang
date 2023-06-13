@@ -7,6 +7,7 @@ import {
   FaUser,
   FaUserTie,
 } from "react-icons/fa";
+import { BiSelectMultiple } from "react-icons/bi";
 import { FcReading } from "react-icons/fc";
 import control from "../assets/icon/control.png";
 
@@ -67,7 +68,7 @@ const DashboardLayout = () => {
                     isActive ? "text-orange-500 " : ""}`}
                   to="/dashboard/manageUser"
                 >
-                  <FaUser></FaUser>
+                  <FaUser className=" text-2xl my-3"></FaUser>
                   <span
                     className={`${
                       !open && "hidden"
@@ -85,7 +86,7 @@ const DashboardLayout = () => {
                     isActive ? "text-orange-500 " : ""}`}
                   to="/dashboard/manageClasses"
                 >
-                  <FaCalculator></FaCalculator>
+                  <FaCalculator className=" text-2xl my-3"></FaCalculator>
                   <span
                     className={`${
                       !open && "hidden"
@@ -109,7 +110,7 @@ const DashboardLayout = () => {
                   to="/dashboard/my-class"
                 >
                   <div className="flex items-center gap-2">
-                    <FcReading></FcReading>
+                    <FcReading className=" text-2xl my-3"></FcReading>
                     <span
                       className={`${
                         !open && "hidden"
@@ -130,13 +131,37 @@ const DashboardLayout = () => {
                   to="/dashboard/add-class"
                 >
                   <div className="flex items-center gap-2">
-                    <FaPlus></FaPlus>{" "}
+                    <FaPlus className=" text-2xl my-3"></FaPlus>{" "}
                     <span
                       className={`${
                         !open && "hidden"
                       } origin-left text-lg duration-200`}
                     >
                       Add Class
+                    </span>
+                  </div>
+                </NavLink>
+              </li>
+            </>
+          ) : role?.role == "student" ? (
+            <>
+              <li
+                className={`text-slate-200 rounded-md p-2 cursor-pointer hover:bg-light-white text-sm items-center gap-x-4  `}
+              >
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "text-orange-500 " : ""
+                  }
+                  to="/dashboard/my-selected-class"
+                >
+                  <div className="flex items-center gap-2">
+                    <BiSelectMultiple className=" text-2xl my-3"></BiSelectMultiple>
+                    <span
+                      className={`${
+                        !open && "hidden"
+                      } origin-left text-lg duration-200`}
+                    >
+                      My Selected Class
                     </span>
                   </div>
                 </NavLink>
@@ -154,7 +179,7 @@ const DashboardLayout = () => {
               to="/"
             >
               <div className="flex items-center gap-5 text-lg duration-200">
-                <FaHome></FaHome>
+                <FaHome className=" text-2xl my-3"></FaHome>
                 <span
                   className={`${
                     !open && "hidden"
@@ -173,7 +198,7 @@ const DashboardLayout = () => {
               to="/instructors"
             >
               <div className="flex items-center gap-5 text-lg duration-200">
-                <FaUserTie></FaUserTie>
+                <FaUserTie className=" text-2xl my-3"></FaUserTie>
                 <span
                   className={`${
                     !open && "hidden"
@@ -192,7 +217,7 @@ const DashboardLayout = () => {
               to="/classes"
             >
               <div className="flex items-center gap-5 text-lg duration-200">
-                <FaLanguage></FaLanguage>
+                <FaLanguage className=" text-2xl my-3"></FaLanguage>
                 <span
                   className={`${
                     !open && "hidden"

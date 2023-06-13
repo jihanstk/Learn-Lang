@@ -8,6 +8,13 @@ const ApproveClass = ({ approveClass }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const handleSelectClass = (id) => {
+    const selectInfo = {
+      image,
+      sit,
+      className,
+      price,
+      email: user?.email,
+    };
     console.log(id);
     user ||
       Swal.fire({
@@ -21,6 +28,20 @@ const ApproveClass = ({ approveClass }) => {
       }).then((result) => {
         if (result.isConfirmed) {
           navigate("/login", { state: { from: location } });
+        }
+      });
+    fetch("http://localhost:5010/selectClass", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(selectInfo),
+    })
+      .then((res) => res.json())
+      .then((inserted) => {
+        console.log(inserted);
+        if (inserted.insertedId) {
+          Swal.fire("Selected!", "Your file has been Selected.", "success");
         }
       });
   };
