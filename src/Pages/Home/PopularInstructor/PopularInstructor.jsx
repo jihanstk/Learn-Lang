@@ -12,9 +12,7 @@ const PopularInstructor = () => {
       <div className="text-center my-20">
         <h1 className="text-4xl font-bold">Popular Instructor</h1>
         <p className=" md:w-1/4 mx-auto my-10">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
-          dolores, eaque nam nesciunt ea repudiandae nisi deleniti laborum odit
-          explicabo.
+          Here is Our mind blowing instructors they are working for you,
         </p>
       </div>
       <Swiper
