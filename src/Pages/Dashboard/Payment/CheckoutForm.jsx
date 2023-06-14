@@ -78,17 +78,24 @@ const CheckoutForm = ({ data, price }) => {
         email: user?.email,
         transactionId: paymentIntent.id,
         price,
+        image: data?.image,
+        userName: data?.userName,
         date: new Date(),
-        payClass: data?._id,
+        payClass: data?.id,
         status: "service pending",
         className: data?.className,
       };
       axiosSecure.post("/payments", payment).then((res) => {
         console.log(res.data);
+        const payId = { id: data?.id };
         if (res.data.insertResult.insertedId) {
           // display confirm
           fetch(`http://localhost:5010/pay-classes`, {
             method: "PATCH",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(payId),
           });
         }
       });

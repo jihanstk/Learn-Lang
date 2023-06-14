@@ -9,7 +9,9 @@ const ApproveClass = ({ approveClass }) => {
   const navigate = useNavigate();
   const handleSelectClass = (id) => {
     const selectInfo = {
+      id,
       image,
+      userName,
       sit,
       className,
       price,
@@ -46,7 +48,11 @@ const ApproveClass = ({ approveClass }) => {
       });
   };
   return (
-    <div className="card w-96 bg-base-100 shadow-xl">
+    <div
+      className={`card w-96 bg-base-100 shadow-xl border ${
+        sit == 0 && "bg-red-600"
+      }`}
+    >
       <figure className="px-10 pt-10">
         <img src={image} alt="Shoes" className="rounded-xl" />
       </figure>
@@ -66,6 +72,7 @@ const ApproveClass = ({ approveClass }) => {
         <div className="card-actions">
           <button
             onClick={() => handleSelectClass(_id)}
+            disabled={sit == 0 && true}
             className="btn btn-primary"
           >
             Select Class

@@ -3,6 +3,8 @@ import Swal from "sweetalert2";
 
 const ManageSingleClasses = ({ SingleClass, refetch }) => {
   // const [disable, setDisable] = useState(false);
+  const { image, className, price, sit, userName, email, status, _id } =
+    SingleClass;
   const handleClassStatus = (id, status) => {
     const classDetail = {
       id,
@@ -40,28 +42,28 @@ const ManageSingleClasses = ({ SingleClass, refetch }) => {
   return (
     <div className="card w-96 bg-base-100 shadow-2xl">
       <figure>
-        <img src={SingleClass.image} alt="Shoes" />
+        <img src={image} alt="Shoes" />
       </figure>
       <div className="card-body">
         <h2 className="card-title">
-          {SingleClass.className}
+          {className}
           <div className="badge badge-secondary">NEW</div>
         </h2>
         <div className="flex">
-          <p>Price: ${SingleClass.price}</p>
-          <p>Sit: {SingleClass.sit}</p>
+          <p>Price: ${price}</p>
+          <p>Sit: {sit}</p>
         </div>
         <div className="">
-          <p>Name: {SingleClass.userName}</p>
-          <p>Email: {SingleClass.email}</p>
+          <p>Name: {userName}</p>
+          <p>Email: {email}</p>
         </div>
         <div className="card-actions justify-end">
           <button
-            onClick={() => handleClassStatus(SingleClass._id, "approve")}
+            onClick={() => handleClassStatus(_id, "approve")}
             disabled={
               SingleClass.status == "approve"
                 ? true
-                : SingleClass.status == "deny"
+                : status == "deny"
                 ? true
                 : false
             }
@@ -70,19 +72,33 @@ const ManageSingleClasses = ({ SingleClass, refetch }) => {
             Approve
           </button>
           <button
-            onClick={() => handleClassStatus(SingleClass._id, "deny")}
+            onClick={() => handleClassStatus(_id, "deny")}
             disabled={
-              SingleClass.status == "approve"
-                ? true
-                : SingleClass.status == "deny"
-                ? true
-                : false
+              status == "approve" ? true : status == "deny" ? true : false
             }
             className="btn-outline btn-info btn btn-xs"
           >
             Deny
           </button>
-          <button className="btn-outline btn-info btn btn-xs">FeedBack</button>
+          {/* The button to open modal */}
+          <label
+            htmlFor="my_modal_7"
+            className="btn btn-xs btn-outline btn-info"
+          >
+            Feedback
+          </label>
+
+          {/* Put this part before </body> tag */}
+          <input type="checkbox" id="my_modal_7" className="modal-toggle" />
+          <div className="modal">
+            <div className="modal-box">
+              <h3 className="text-lg font-bold">{className}</h3>
+              <p className="py-4">This modal works with a hidden checkbox!</p>
+            </div>
+            <label className="modal-backdrop" htmlFor="my_modal_7">
+              Close
+            </label>
+          </div>
         </div>
       </div>
     </div>

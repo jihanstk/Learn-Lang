@@ -7,6 +7,8 @@ import {
   FaUser,
   FaUserTie,
 } from "react-icons/fa";
+import { SlBookOpen } from "react-icons/sl";
+
 import { BiSelectMultiple } from "react-icons/bi";
 import { FcReading } from "react-icons/fc";
 import control from "../assets/icon/control.png";
@@ -162,6 +164,27 @@ const DashboardLayout = () => {
                       } origin-left text-lg duration-200`}
                     >
                       My Selected Class
+                    </span>
+                  </div>
+                </NavLink>
+              </li>
+              <li
+                className={`text-slate-200 rounded-md p-2 cursor-pointer hover:bg-light-white text-sm items-center gap-x-4  `}
+              >
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "text-orange-500 " : ""
+                  }
+                  to="/dashboard/enrolled-class"
+                >
+                  <div className="flex items-center gap-2">
+                    <SlBookOpen className=" text-2xl my-3"></SlBookOpen>
+                    <span
+                      className={`${
+                        !open && "hidden"
+                      } origin-left text-lg duration-200`}
+                    >
+                      Enrolled Class
                     </span>
                   </div>
                 </NavLink>
