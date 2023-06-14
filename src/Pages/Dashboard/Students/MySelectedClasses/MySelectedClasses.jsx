@@ -2,7 +2,7 @@ import useSelectClass from "../../../../Hooks/useSelectClass";
 import SelectSingleClass from "./SelectSingleClass";
 
 const MySelectedClasses = () => {
-  const [selectClass] = useSelectClass();
+  const [selectClass, refetch] = useSelectClass();
   console.log(selectClass);
 
   return (
@@ -17,6 +17,7 @@ const MySelectedClasses = () => {
           <SelectSingleClass
             key={selectClass._id}
             selectClass={selectClass}
+            refetch={refetch}
           ></SelectSingleClass>
         ))}
       </div>
