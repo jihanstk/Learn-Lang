@@ -2,9 +2,12 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../../Hooks/useAuth";
 import SocialLogin from "../../../Common/SocialLogin";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { FaEye } from "react-icons/fa";
 
 const Login = () => {
   const location = useLocation();
+  const [showPass, setShowPass] = useState(false);
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
   const { login } = useAuth();
@@ -49,7 +52,7 @@ const Login = () => {
                 <span className="label-text">Password</span>
               </label>
               <input
-                type="password"
+                type={showPass ? "text" : "password"}
                 {...register("password", {
                   required: true,
                   minLength: 6,
@@ -59,6 +62,10 @@ const Login = () => {
                 placeholder="password"
                 className="input input-bordered"
               />
+              <FaEye
+                onClick={() => setShowPass(!showPass)}
+                className="absolute right-10 mt-12 text-2xl"
+              ></FaEye>
               {errors.password?.type === "required" && (
                 <p className="text-red-600">Password is required</p>
               )}

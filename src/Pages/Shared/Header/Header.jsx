@@ -58,17 +58,21 @@ const Header = () => {
           Classes
         </NavLink>
       </li>
-      <li className="uppercase">
-        <NavLink
-          className={({ isActive }) =>
-            isActive ? "text-orange-500 border-b-2 border-orange-500" : ""
-          }
-          to="/dashboard"
-        >
-          Dashboard
-        </NavLink>
-      </li>
-      {user ? <></> : <></>}
+
+      {user ? (
+        <li className="uppercase">
+          <NavLink
+            className={({ isActive }) =>
+              isActive ? "text-orange-500 border-b-2 border-orange-500" : ""
+            }
+            to="/dashboard"
+          >
+            Dashboard
+          </NavLink>
+        </li>
+      ) : (
+        <></>
+      )}
     </>
   );
   return (

@@ -3,6 +3,7 @@ import {
   FaCalculator,
   FaHome,
   FaLanguage,
+  FaPaypal,
   FaPlus,
   FaUser,
   FaUserTie,
@@ -185,6 +186,27 @@ const DashboardLayout = () => {
                       } origin-left text-lg duration-200`}
                     >
                       Enrolled Class
+                    </span>
+                  </div>
+                </NavLink>
+              </li>
+              <li
+                className={`text-slate-200 rounded-md p-2 cursor-pointer hover:bg-light-white text-sm items-center gap-x-4  `}
+              >
+                <NavLink
+                  className={({ isActive }) =>
+                    isActive ? "text-orange-500 " : ""
+                  }
+                  to="/dashboard/payment-history"
+                >
+                  <div className="flex items-center gap-2">
+                    <FaPaypal className=" text-2xl my-3"></FaPaypal>
+                    <span
+                      className={`${
+                        !open && "hidden"
+                      } origin-left text-lg duration-200`}
+                    >
+                      Payment History
                     </span>
                   </div>
                 </NavLink>

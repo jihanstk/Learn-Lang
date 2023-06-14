@@ -2,12 +2,17 @@ import { useForm } from "react-hook-form";
 import useAuth from "../../../Hooks/useAuth";
 
 import SocialLogin from "../../../Common/SocialLogin";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { useState } from "react";
+import { FaEye } from "react-icons/fa";
 
 const img_hosting_token = import.meta.env.VITE_IMG_HOSTING_API;
 const Register = () => {
+  const [show, setShow] = useState(false);
+  const [showPass, setShowPass] = useState(false);
+  const [Error, setError] = useState(false);
   const { signUp, UpdateUserProfile, logOut } = useAuth();
   const [axiosSecure] = useAxiosSecure();
 
@@ -20,7 +25,12 @@ const Register = () => {
 
   const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
   const onSubmit = (data) => {
+    setError("");
     console.log(data);
+    if (data.password !== data.ConPassword) {
+      setError("passWord Dosen't match");
+      return;
+    }
     const formData = new FormData();
     formData.append("image", data.image[0]);
     fetch(img_hosting_url, {
@@ -55,9 +65,6 @@ const Register = () => {
           );
         });
       });
-    // if (data.password !== data.ConPassword) {
-    //   return;
-    // }
   };
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -101,7 +108,7 @@ const Register = () => {
                 <span className="label-text">Password</span>
               </label>
               <input
-                type="password"
+                type={showPass ? "text" : "password"}
                 {...register("password", {
                   required: true,
                   minLength: 6,
@@ -109,8 +116,12 @@ const Register = () => {
                   pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
                 })}
                 placeholder="password"
-                className="input input-bordered"
+                className="input input-bordered relative"
               />
+              <FaEye
+                onClick={() => setShowPass(!showPass)}
+                className="absolute right-10 mt-12 text-2xl"
+              ></FaEye>
               {errors.password?.type === "required" && (
                 <p className="text-red-600">Password is required</p>
               )}
@@ -134,13 +145,17 @@ const Register = () => {
                 <span className="label-text">Confirm Password</span>
               </label>
               <input
-                type="password"
+                type={show ? "text" : "password"}
                 {...register("ConPassword", {
                   required: true,
                 })}
                 placeholder="Confirm Password"
-                className="input input-bordered"
+                className="input input-bordered relative"
               />
+              <FaEye
+                onClick={() => setShow(!show)}
+                className="absolute right-10 mt-12 text-2xl"
+              ></FaEye>
             </div>
             <div className="form-control w-full max-w-xs">
               <input
@@ -151,6 +166,7 @@ const Register = () => {
                 className="file-input file-input-bordered w-full max-w-xs"
               />
             </div>
+            {Error && <p className="p-10 text-red-700">{Error}</p>}
             <div className="form-control mt-6">
               <input
                 type="submit"
@@ -159,6 +175,12 @@ const Register = () => {
               />
             </div>
           </form>
+          <p className="p-9">
+            Already Have an account?{" "}
+            <Link className="text-orange-600 font-bold " to="/login">
+              Please log in
+            </Link>{" "}
+          </p>
           <SocialLogin></SocialLogin>
         </div>
       </div>

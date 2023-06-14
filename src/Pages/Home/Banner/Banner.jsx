@@ -23,14 +23,14 @@ const Banner = () => {
       >
         <SwiperSlide>
           {" "}
-          <div className="grid grid-cols-2 ">
+          <div className="grid md:grid-cols-2 grid-cols-1 ">
             <div className="flex flex-col justify-center items-end">
-              <div className="w-9/12">
-                <h1 className="text-4xl font-bold ">
+              <div className="md:w-9/12 w-11/12 ">
+                <h1 className="md:text-4xl text-2xl font-bold ">
                   The Language Catalyst Ignite Your Fluency through our
                   Cutting-Edge Online Program
                 </h1>
-                <p className=" my-7">
+                <p className="my-7">
                   Unlock the power of language and become a polyglot prodigy
                   with our captivating online language course! Whether you dream
                   of mastering multiple languages for personal enrichment,
@@ -49,10 +49,10 @@ const Banner = () => {
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="grid grid-cols-2 ">
+          <div className="grid md:grid-cols-2 grid-cols-1 ">
             <div className="flex flex-col justify-center items-end">
-              <div className="w-9/12">
-                <h1 className="text-4xl font-bold ">
+              <div className="md:w-9/12 w-11/12">
+                <h1 className="md:text-4xl text-2xl font-bold ">
                   Ignite Your Linguistic Potential with our Language Course{" "}
                 </h1>
                 <p className=" my-7">
@@ -74,10 +74,10 @@ const Banner = () => {
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="grid grid-cols-2 ">
+          <div className="grid md:grid-cols-2 grid-cols-1 ">
             <div className="flex flex-col justify-center items-end">
-              <div className="w-9/12">
-                <h1 className="text-4xl font-bold ">
+              <div className="md:w-9/12 w-11/12">
+                <h1 className="md:text-4xl text-2xl font-bold ">
                   Language Voyage Explore, Learn, and Conquer with our
                   Captivating Online Course
                 </h1>

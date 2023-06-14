@@ -1,20 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "./useAxiosSecure";
-import useAuth from "./useAuth";
-const useClass = () => {
-  const { loading } = useAuth();
-  // const token = localStorage.getItem('access-token');
-  const [axiosSecure] = useAxiosSecure();
-  const { refetch, data: allClasses = [] } = useQuery({
-    queryKey: ["classes"],
-    enabled: !loading,
-    queryFn: async () => {
-      const res = await axiosSecure(`/all-classes`);
-      console.log("res from axios", res);
-      return res.data;
-    },
-  });
+import { useEffect, useState } from "react";
 
-  return [allClasses, refetch];
+const useClass = () => {
+  const [allClasses, setAllClasses] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5010/popular-classes")
+      .then((res) => res.json())
+      .then((instructors) => {
+        setAllClasses(instructors);
+      });
+  }, []);
+
+  return [allClasses];
 };
 export default useClass;

@@ -1,12 +1,34 @@
 import Swal from "sweetalert2";
-import useClass from "../../../../Hooks/useClass";
+
+import useAdminClass from "../../../../Hooks/useAdminClass";
 
 // import ManageSingleClasses from "./manageSingleClasses";
 
 const ManageClasses = () => {
-  const [allClasses, refetch] = useClass();
+  const [allAdminClass, refetch] = useAdminClass();
 
-  console.log(allClasses);
+  const handleSubmit = (e, id) => {
+    // console.log(e.target.feedback.value);
+    e.preventDefault();
+    const feedback = {
+      reason: e.target.feedback.value,
+      id: id,
+    };
+
+    fetch("http://localhost:5010/feedback-classes", {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(feedback),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
+
+  console.log(allAdminClass);
   // const { image, className, price, sit, userName, email, status, _id } =
   // SingleClass;
   const handleClassStatus = (id, status) => {
@@ -58,7 +80,7 @@ const ManageClasses = () => {
           </tr>
         </thead>
         <tbody>
-          {allClasses.map((singleClass) => {
+          {allAdminClass.map((singleClass, i) => {
             return (
               <tr key={singleClass._id}>
                 <td></td>
@@ -107,28 +129,44 @@ const ManageClasses = () => {
                     Deny
                   </button>
                   {/* The button to open modal */}
-                  <label htmlFor="my_modal_7" className="btn">
+                  {/* The button to open modal */}
+                  <label htmlFor={`my_modal_${i}`} className="btn">
                     open modal
                   </label>
 
                   {/* Put this part before </body> tag */}
                   <input
                     type="checkbox"
-                    id="my_modal_7"
+                    id={`my_modal_${i}`}
                     className="modal-toggle"
                   />
                   <div className="modal">
                     <div className="modal-box">
-                      <h3 className="text-lg font-bold">
-                        {singleClass.className}!
+                      <h3 className="font-bold text-lg">
+                        {singleClass.className}
                       </h3>
-                      <p className="py-4">
-                        This modal works with a hidden checkbox!
-                      </p>
+                      <p className="py-4">{singleClass._id}</p>
+                      <form onSubmit={(e) => handleSubmit(e, singleClass._id)}>
+                        <div className="form-control">
+                          <label className="label"></label>
+                          <textarea
+                            className="textarea textarea-bordered h-24"
+                            placeholder="FeedBack"
+                            name="feedback"
+                          ></textarea>
+                        </div>
+                        <input
+                          className="btn btn-outline btn-primary mt-5"
+                          type="submit"
+                          value="Submit"
+                        />
+                      </form>
+                      <div className="modal-action">
+                        <label htmlFor={`my_modal_${i}`} className="btn">
+                          Close!
+                        </label>
+                      </div>
                     </div>
-                    <label className="modal-backdrop" htmlFor="my_modal_7">
-                      Close
-                    </label>
                   </div>
                 </td>
               </tr>
