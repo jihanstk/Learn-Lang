@@ -60,7 +60,7 @@ const ApproveClass = ({ approveClass }) => {
         <h2 className="card-title">{className}</h2>
         <div className="flex items-center gap-4">
           <p>
-            Sit Num: <strong>{sit}</strong>
+            Available Sit: <strong>{sit}</strong>
           </p>
           <p>
             Price: <strong>{price}</strong>

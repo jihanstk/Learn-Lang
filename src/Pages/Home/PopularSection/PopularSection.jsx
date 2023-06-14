@@ -6,9 +6,9 @@ const PopularSection = () => {
   console.log(popularClasses);
   return (
     <>
-      <div className="text-center">
-        <h1 className="text-4xl text-slate-800 font-bold">Popular Classes</h1>
-        <p className=" text-slate-500 w-1/4 mx-auto">
+      <div className="text-center my-20">
+        <h1 className="text-4xl font-bold">Popular Classes</h1>
+        <p className=" md:w-1/4 mx-auto my-10">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium
           dolores, eaque nam nesciunt ea repudiandae nisi deleniti laborum odit
           explicabo.
